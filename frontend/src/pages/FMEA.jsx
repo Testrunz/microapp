@@ -5,6 +5,7 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 import { saveAs } from "file-saver";
+import axios from "axios";
 
 const FMEA = () => {
   const [fmeaName, setFmeaName] = useState("");
@@ -18,32 +19,33 @@ const FMEA = () => {
     saveAs(blob, "fmeaTable.txt");
   };
 
-  async function onSubmit(event) {
+  const onSubmit = async (event) => {
     event.preventDefault();
-    setLoading(true);
+  
     try {
-      const response = await fetch("http://127.0.0.1:5000/generate-fmea", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ fmeaName: fmeaName }),
-      });
-
-      const data = await response.json();
-      if (response.status !== 200) {
-        throw (
-          data.error ||
-          new Error(`Request failed with status ${response.status}`)
-        );
+      setLoading(true);
+  
+      // Generate FMEA
+      const fmeaResponse = await axios.post(
+       "http://3.19.219.191/generate-fmea",
+        //  "http://127.0.0.1:5000/generate-fmea",
+        { fmeaName }
+      );
+  
+      const data = fmeaResponse.data;
+  
+      if (fmeaResponse.status !== 200) {
+        throw new Error(`Request failed with status ${fmeaResponse.status}`);
       }
+  
       setFmeaTable(data.fmeaTable);
     } catch (error) {
-      console.error(error);
+      console.error("Error generating FMEA:", error.message);
     } finally {
       setLoading(false);
     }
-  }
+  };
+  
 
   const ColorButton = styled(Button)(({ theme }) => ({
     color: theme.palette.getContrastText(indigo[900]),

@@ -19,7 +19,8 @@ function SequenceDiagram() {
 
       // Generate Mermaid code
       const mermaidResponse = await axios.post(
-        "http://127.0.0.1:5000/generate-sequence-diagram",
+        "http://3.19.219.191/generate-sequence-diagram",
+       //  "http://127.0.0.1:5000/generate-sequence-diagram",
         { name }
       );
       const generatedMermaidCode = mermaidResponse.data.mermaidImage;
@@ -87,14 +88,6 @@ function SequenceDiagram() {
           />
         </>
       )}
-      {/* {mermaidCode && (
-        <>
-          <h4>Generated Mermaid Code:</h4>
-          <pre>{mermaidCode}</pre>
-          <h4>Generated Mermaid Diagram:</h4>
-          <div dangerouslySetInnerHTML={{ __html: mermaidCode }} />
-        </>
-      )} */}
       <div id="sequence-diagram"></div>
     </div>
   );

@@ -19,7 +19,8 @@ function MindmapPlantuml() {
 
       // Generate Mermaid code
       const mermaidResponse = await axios.post(
-        "http://127.0.0.1:5000/generate-plantuml-diagram",
+        //  "http://3.19.219.191/generate-plantuml-diagram",
+       "http://127.0.0.1:5000/generate-plantuml-diagram",
         { name }
       );
       const generatedMermaidCode = mermaidResponse.data.mermaidImage;

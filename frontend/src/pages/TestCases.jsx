@@ -8,23 +8,25 @@ import TextField from '@mui/material/TextField';
 const TestCases = () => {
   const [title, setTitle] = useState('');
   const [response, setResponse] = useState({ source: '', title_response: '', tests: [], clauses: [] });
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
     try {
-        const response = await fetch('http://localhost:5000/extract-test-cases', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ title }),
-        });
-
-        const data = await response.json();
-        setResponse(data);
+      const response = await axios.post('http://127.0.0.1:5000/extract-test-cases', {
+        title: title
+      });
+      console.log('Server Response:', response.data);
+      setResponse(response.data);
     } catch (error) {
-        console.error('Error:', error);
+      console.error('Error:', error);
+      setResponse({ error: 'An error occurred. Please try again.' });
+    } finally {
+      setLoading(false);
     }
-};
+  };
 
   const ColorButton = styled(Button)(({ theme }) => ({
     color: theme.palette.getContrastText(indigo[900]),
@@ -40,7 +42,7 @@ const TestCases = () => {
       <br />
       <br />
       <form onSubmit={handleSubmit}>
-        <p>For which product you would like to test</p>
+        <p>For which product would you like to test</p>
         <br />
         <TextField
           sx={{
@@ -57,32 +59,37 @@ const TestCases = () => {
         />
         <br />
         <br />
-        <ColorButton onClick={handleSubmit} type="submit" variant="contained" value="Generate">
-          Submit
+        <ColorButton type="submit" variant="contained" disabled={loading}>
+          {loading ? 'Loading...' : 'Submit'}
         </ColorButton>
       </form>
 
-      <div>Response: {JSON.stringify(response)}</div>
-      {response.source && (
-        <div>
-          <h2>Source: {response.source}</h2>
-          <h2>Document Title: {response.title_response}</h2>
+      {!loading && response && !response.error && response.source && (
+  <div>
+    <h2>Source: {response.source}</h2>
+    <h2>Document Title: {response.title_response}</h2>
 
-          <h3>Extracted Test Cases:</h3>
-          <ul>
-            {response.tests.map((test, index) => (
-              <li key={index}>{test}</li>
-            ))}
-          </ul>
+    <h3>Extracted Test Cases:</h3>
+    <ul>
+      {response.tests && response.tests.map((test, index) => (
+        <li key={index}>{test}</li>
+      ))}
+    </ul>
 
-          <h3>Extracted Clauses:</h3>
-          <ul>
-            {response.clauses.map((clause, index) => (
-              <li key={index}>{clause}</li>
-            ))}
-          </ul>
-        </div>
-      )}
+    <h3>Extracted Clauses:</h3>
+    <ul>
+      {response.clauses && response.clauses.map((clause, index) => (
+        <li key={index}>{clause}</li>
+      ))}
+    </ul>
+  </div>
+)}
+
+{!loading && response && response.error && (
+  <div>
+    <p>{response.error}</p>
+  </div>
+)}
     </div>
   );
 };

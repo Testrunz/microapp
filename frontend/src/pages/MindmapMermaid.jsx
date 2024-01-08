@@ -19,7 +19,8 @@ function MindmapMermaid() {
 
       // Generate Mermaid code
       const mermaidResponse = await axios.post(
-        "http://127.0.0.1:5000/generate-mindmap-diagram",
+        "http://3.19.219.191/generate-mindmap-diagram",
+       //  "http://127.0.0.1:5000/generate-mindmap-diagram",
         { name }
       );
       const generatedMermaidCode = mermaidResponse.data.mermaidImage;

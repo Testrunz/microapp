@@ -1,0 +1,25 @@
+@startmindmap
+* Making Coffee
+** Choose Coffee Type
+*** Espresso
+*** Latte
+*** Cappuccino
+** Select Coffee Beans
+*** Arabica
+*** Robusta
+** Grind Coffee Beans
+*** Fine
+*** Medium
+*** Coarse
+** Boil Water
+** Brew Coffee
+*** Using Coffee Machine
+*** Manual Brewing
+**** French Press
+**** AeroPress
+**** Pour Over
+** Serve
+*** Add Milk
+*** Add Sugar
+*** Black
+@endmindmap

@@ -13,7 +13,7 @@ const DOE = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/doe_options")
+      .get("http://127.0.0.1:5000/doe_options")
       .then((response) => {
         setData(response.data);
       })
@@ -33,11 +33,11 @@ const DOE = () => {
 
     // Fetch DOE values based on the selected DOE ID
     axios
-      .post("http://localhost:5000/api/generate_doe", {
+      .post("http://localhost:5000/api/variable_values", {
         select_name: value._id,
       })
       .then((response) => {
-        setDoeValues(response.data.doeTable);
+        setDoeValues(response.data.dict_response);
       })
       .catch((error) => console.error(error));
   };
@@ -78,7 +78,7 @@ const DOE = () => {
             multiline
             rows={4}
             variant="outlined"
-            value={doeValues}
+            value={JSON.stringify(doeValues, null, 2)}
           />
         </div>
       )}
