@@ -70,14 +70,14 @@ function SequenceDiagram() {
         />
         <br />
         <br />
-        <ColorButton type="submit" variant="contained">
-          Submit
+        <ColorButton type="submit" variant="contained" disabled={loading}>
+          {loading ? 'Loading...' : 'Submit'}
         </ColorButton>
       </form>
       <br />
       <br />
-      {loading && <p>Loading...</p>}
-      <br/>
+      {/* {loading && <p>Loading...</p>} */}
+      {/* <br/> */}
       {mermaidCode && (
         <>
           <h4>Generated Mermaid Diagram:</h4>

@@ -20,7 +20,7 @@ function MindmapMermaid() {
       // Generate Mermaid code
       const mermaidResponse = await axios.post(
         "http://3.19.219.191/generate-mindmap-diagram",
-       //  "http://127.0.0.1:5000/generate-mindmap-diagram",
+        // "http://127.0.0.1:5000/generate-mindmap-diagram",
         { name }
       );
       const generatedMermaidCode = mermaidResponse.data.mermaidImage;
@@ -70,13 +70,13 @@ function MindmapMermaid() {
         />
         <br />
         <br />
-        <ColorButton type="submit" variant="contained">
-          Submit
+        <ColorButton type="submit" variant="contained" disabled={loading}>
+          {loading ? 'Loading...' : 'Submit'}
         </ColorButton>
       </form>
       <br />
       <br />
-      {loading && <p>Loading...</p>}
+      {/* {loading && <p>Loading...</p>} */}
       <br/>
       {mermaidCode && (
         <>

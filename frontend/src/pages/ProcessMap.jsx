@@ -19,8 +19,8 @@ const ProcessMap = () => {
 
       // Generate Mermaid code
       const mermaidResponse = await axios.post(
-       "http://3.19.219.191/process-map",
-        //  "http://127.0.0.1:5000/process-map",
+        "http://3.19.219.191/process-map",
+       //  "http://127.0.0.1:5000/process-map",
         { name }
       );
       const generatedMermaidCode = mermaidResponse.data.mermaidImage;
@@ -75,14 +75,14 @@ const ProcessMap = () => {
         />
         <br />
         <br />
-        <ColorButton type="submit" variant="contained">
-          Submit
+        <ColorButton type="submit" variant="contained" disabled={loading}>
+          {loading ? 'Loading...' : 'Submit'}
         </ColorButton>
       </form>
       <br />
       <br />
-      {loading && <p>Loading...</p>}
-      <br />
+      {/* {loading && <p>Loading...</p>} */}
+      {/* <br /> */}
       {mermaidCode && (
         <>
           <h4>Generated Process map:</h4>

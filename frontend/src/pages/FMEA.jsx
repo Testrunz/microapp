@@ -28,7 +28,7 @@ const FMEA = () => {
       // Generate FMEA
       const fmeaResponse = await axios.post(
        "http://3.19.219.191/generate-fmea",
-        //  "http://127.0.0.1:5000/generate-fmea",
+         // "http://127.0.0.1:5000/generate-fmea",
         { fmeaName }
       );
   
@@ -77,9 +77,9 @@ const FMEA = () => {
         <br />
         <br />
         <Stack spacing={37} direction="row">
-          <ColorButton type="submit" variant="contained">
-            Submit
-          </ColorButton>
+        <ColorButton type="submit" variant="contained" disabled={loading}>
+          {loading ? 'Loading...' : 'Submit'}
+        </ColorButton>
           <ColorButton variant="contained" onClick={handleDownload}>
             Download
           </ColorButton>
@@ -87,7 +87,6 @@ const FMEA = () => {
       </form>
       <br />
       <br />
-      {loading && <p>Loading...</p>}
       <div>
         <pre>{fmeaTable}</pre>
       </div>
